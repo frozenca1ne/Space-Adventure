@@ -17,17 +17,17 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            musicPlayer.volume = PlayerPrefs.GetFloat(PREFS_MUSIC_VOLUME, 0.5f);
-            effectsPlayer.volume = PlayerPrefs.GetFloat(PREFS_MUSIC_VOLUME, 0.5f);
+            musicPlayer.volume = PlayerPrefs.GetFloat(PrefsMusicVolume, 0.5f);
+            effectsPlayer.volume = PlayerPrefs.GetFloat(PrefsMusicVolume, 0.5f);
         }
     }
     #endregion
 
-    [SerializeField] AudioSource musicPlayer;
-    [SerializeField] AudioSource effectsPlayer;
+    [SerializeField] private AudioSource musicPlayer;
+    [SerializeField] private AudioSource effectsPlayer;
 
-    private const string PREFS_MUSIC_VOLUME = "Volume";
-    private const string PREFS_EFFECTS_VOLUME = "Effects";
+    private const string PrefsMusicVolume = "Volume";
+    private const string PrefsEffectsVolume = "Effects";
     
     public void PlayEffect(AudioClip effect)
     {
@@ -36,13 +36,13 @@ public class AudioManager : MonoBehaviour
     public void SetMusicVolume(float volume)
     {
         musicPlayer.volume = volume;
-        PlayerPrefs.SetFloat(PREFS_MUSIC_VOLUME, volume);
+        PlayerPrefs.SetFloat(PrefsMusicVolume, volume);
     }
 
     public void SetEffectsVolume(float volume)
     {
         effectsPlayer.volume = volume;
-        PlayerPrefs.SetFloat(PREFS_EFFECTS_VOLUME, volume);
+        PlayerPrefs.SetFloat(PrefsEffectsVolume, volume);
     }
     public float GetMusicVolume()
     {
