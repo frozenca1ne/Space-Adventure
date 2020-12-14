@@ -28,6 +28,8 @@ namespace UI
         {
             var sceneIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(sceneIndex + 1);
+            if(Time.timeScale != 0) return;
+            Time.timeScale = 1;
         }
 
         private void ExitGame()

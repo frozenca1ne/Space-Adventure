@@ -27,11 +27,13 @@
           <e p="Asteroid.cs" t="Include" />
           <e p="AudioManager.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
+          <e p="IPointAdd.cs" t="Include" />
           <e p="LevelManager.cs" t="Include" />
           <e p="Road.cs" t="Include" />
           <e p="SmoothFollow.cs" t="Include" />
           <e p="Spaceship.cs" t="Include" />
           <e p="UI" t="Include">
+            <e p="GameUiView.cs" t="Include" />
             <e p="SettingsView.cs" t="Include" />
             <e p="StartGameView.cs" t="Include" />
           </e>

@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class Asteroid : MonoBehaviour
 {
-    [SerializeField] int point = 5;
-    [SerializeField] int pointPerAsteroid = 1;
-
+    
+    [SerializeField] private int points = 5;
+    [SerializeField] private int pointsPerAsteroid = 1;
+    
     private Quaternion originalRotation;
-    private float rotateAngle;
-
+    private float currentRotateAngle;
+    
     private void Start()
     {
         originalRotation = transform.rotation;
@@ -22,15 +21,13 @@ public class Asteroid : MonoBehaviour
     private void Rotate()
     {
         //independent rotation on two axes
-        rotateAngle++;
-        Quaternion rotationY = Quaternion.AngleAxis(rotateAngle, Vector3.up);
-        Quaternion rotationX = Quaternion.AngleAxis(rotateAngle, Vector3.right);
+        currentRotateAngle++;
+        var rotationY = Quaternion.AngleAxis(currentRotateAngle, Vector3.up);
+        var rotationX = Quaternion.AngleAxis(currentRotateAngle, Vector3.right);
         transform.rotation = originalRotation * rotationY * rotationX;
     }
     private void OnBecameInvisible()
     {
-        LevelManager.Instance.AddPointToScore(point);
-        LevelManager.Instance.AddAsteroidsCount(pointPerAsteroid);
         Destroy(gameObject);
     }
 }

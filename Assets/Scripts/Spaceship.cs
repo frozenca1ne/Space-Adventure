@@ -39,13 +39,8 @@ public class Spaceship : MonoBehaviour
             return isAlive;
         }
     }
-    public float BoostFilling
-    {
-        get
-        {
-            return boostFilling;
-        }
-    }
+    public float BoostFilling => boostFilling;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -81,7 +76,7 @@ public class Spaceship : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                LevelManager.Instance.DoublePoints = true;
+                //LevelManager.Instance.DoublePoints = true;
                 AudioManager.Instance.PlayEffect(accelerationSound);
                 mainCamera.BoostZoom();
                 StartCoroutine(SetAcceleration(accelerationTime, accelerationСoeff));
@@ -102,7 +97,7 @@ public class Spaceship : MonoBehaviour
             }
             else if (readyForFillBoost && boostFilling < startBoostFilling)
             {
-                LevelManager.Instance.DoublePoints = false;
+                //LevelManager.Instance.DoublePoints = false;
                 boostFilling += Time.deltaTime;
                 if (boostFilling >= startBoostFilling)
                 {                    
@@ -132,7 +127,7 @@ public class Spaceship : MonoBehaviour
         AudioManager.Instance.PlayEffect(dieSound);
         Instantiate(diePartical, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
-        LevelManager.Instance.SetBestScore();
-        UImanager.Instance.ActivateLoseGamePanel();
+        //LevelManager.Instance.SetBestScore();
+        //UImanager.Instance.ActivateLoseGamePanel();
     }
 }
