@@ -33,6 +33,7 @@
           <e p="SmoothFollow.cs" t="Include" />
           <e p="Spaceship.cs" t="Include" />
           <e p="UI" t="Include">
+            <e p="GameOverView.cs" t="Include" />
             <e p="GameUiView.cs" t="Include" />
             <e p="SettingsView.cs" t="Include" />
             <e p="StartGameView.cs" t="Include" />

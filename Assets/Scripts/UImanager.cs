@@ -16,10 +16,8 @@ public class UImanager : MonoBehaviour,IPointerClickHandler
     [SerializeField] CanvasGroup dieMenu;
     [SerializeField] float waitTime = 2f;
     [SerializeField] float restartTime = 1f;
-    [SerializeField] Text finalScore;
-    [SerializeField] Text finalAsteroids;
-    [SerializeField] Text finalTotalTime;
-    [SerializeField] Text upgradeScore;
+    
+    
 
     [Header("SettingsPanel")]
     [SerializeField] CanvasGroup settingsPanel;
@@ -43,13 +41,7 @@ public class UImanager : MonoBehaviour,IPointerClickHandler
         spaceship = FindObjectOfType<Spaceship>();
         
     }
-    public void RestartLevel()
-    {
-        OnLevelReset();
-        Time.timeScale = 1;
-        upgradeScore.gameObject.SetActive(false);
-        dieMenu.gameObject.SetActive(false);
-    }
+    
     public void ActivateSettingPanel()
     {
         Time.timeScale = 0;
@@ -61,12 +53,6 @@ public class UImanager : MonoBehaviour,IPointerClickHandler
         Time.timeScale = 1;
         settingsPanel.gameObject.SetActive(false);
     }
-    
-    public void ActivateLoseGamePanel()
-    {
-        StartCoroutine(EnableLosePanel(waitTime));
-    }
-    
     public void OnPointerClick(PointerEventData eventData)
     {
         //AudioManager.Instance.PlayEffect(clickSound);
@@ -75,22 +61,6 @@ public class UImanager : MonoBehaviour,IPointerClickHandler
     public void OnClick()
     {
         AudioManager.Instance.PlayEffect(clickSound);
-    }
-    
-    
-
-    private IEnumerator EnableLosePanel(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Time.timeScale = 0;
-        dieMenu.gameObject.SetActive(true);
-        //finalScore.text = "FINAL SCORE : " + LevelManager.Instance.Score;
-        //finalAsteroids.text = "ASTEROIDS : " + LevelManager.Instance.AsteroidsCount;
-        //finalTotalTime.text = "TOTAL TIME : " + LevelManager.Instance.TimeInGame;
-       // if (LevelManager.Instance.Score > PlayerPrefs.GetInt("BestScore", 0))
-        {
-            upgradeScore.gameObject.SetActive(true);
-        }
     }
     
 }

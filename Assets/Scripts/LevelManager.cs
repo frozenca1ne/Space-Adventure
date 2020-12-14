@@ -15,6 +15,11 @@ public class LevelManager : MonoBehaviour,IPointAdd
     [SerializeField] private float timeInGame = 0;
 
     private float scoreTimer;
+
+    public int CurrentScore => currentScore;
+    public int CurrentBestScore => currentBestScore;
+    public int EarnAsteroidsCount => earnAsteroidsCount;
+    public float TimeInGame => timeInGame;
     
     public bool DoublePoints { get; set; }
     public void AddPointsToScore(int value)
