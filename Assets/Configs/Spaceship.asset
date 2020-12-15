@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e8707a1b1af4aa895786fd26a100e0, type: 3}
   m_Name: Spaceship
   m_EditorClassIdentifier: 
-  moveForwardSpeed: 10
-  moveRightSpeed: 10
-  moveRightLimit: 2.5
-  rotateAngleCoefficient: 10
+  moveForwardSpeed: 50
+  moveRightSpeed: 15
+  moveRightLimit: 3.3
+  rotateAngleCoefficient: 15
   accelerationCoefficient: 2
   accelerationTime: 3
-  accelerationSound: {fileID: 0}
-  dieParticle: {fileID: 0}
-  dieSound: {fileID: 0}
+  accelerationSound: {fileID: 8300000, guid: 281e15cc92254794eaf05caf4d044b76, type: 3}
+  dieParticle: {fileID: 100006, guid: e076683e0305e35498b8e8834978c0fa, type: 3}
+  dieSound: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}

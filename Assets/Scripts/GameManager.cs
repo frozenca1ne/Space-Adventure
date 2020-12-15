@@ -13,11 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject asteroid;
     [SerializeField] private int asteroidCount = 1;
     [SerializeField] private float createRate = 10f;
-
     
     private Road newRoad;
-
-    private List<Road> spawnedRoads = new List<Road>();
+    private readonly List<Road> spawnedRoads = new List<Road>();
 
     private void Start()
     {

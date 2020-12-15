@@ -20,14 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24fa5d17-f449-4f62-8cd5-6867d9723bf2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Space Adventure/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Space Adventure/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Space Adventure/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Space Adventure/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Spaceship.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Spaceship.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Main Camera.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Main Camera.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LevelManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Road.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Road.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/SmoothFollow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SmoothFollow.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Spaceship.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Spaceship.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UImanager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UImanager.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,12 +56,13 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/StartGameView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/PreStartPanel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UImanager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/SmoothFollow.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SOconfigs/SpaceshipConfig.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/LevelManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Spaceship.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SOConfigs/SpaceshipConfig.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Road.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Spaceship.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SmoothFollow.cs" />
       </list>
     </option>
   </component>
@@ -104,7 +105,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607937782620</updated>
-      <workItem from="1607937798995" duration="21017000" />
+      <workItem from="1607937798995" duration="26488000" />
     </task>
     <servers />
   </component>
@@ -132,5 +133,9 @@
       <screen x="0" y="23" width="1440" height="825" />
     </state>
     <state x="100" y="123" width="1240" height="625" key="VCS.FileHistoryDialog/0.23.1440.825@0.23.1440.825" timestamp="1607978029980" />
+    <state x="383" y="169" width="672" height="678" key="search.everywhere.popup" timestamp="1608061730767">
+      <screen x="0" y="23" width="1440" height="825" />
+    </state>
+    <state x="383" y="169" width="672" height="678" key="search.everywhere.popup/0.23.1440.825@0.23.1440.825" timestamp="1608061730767" />
   </component>
 </project>

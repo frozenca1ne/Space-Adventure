@@ -6,50 +6,63 @@ public class SmoothFollow : MonoBehaviour
     [SerializeField] private float boostDistance = 3f;
     [SerializeField] private float normalDistance = 4f;
     
-    [SerializeField] private float distance = 10.0f;
-    [SerializeField] private float height = 5.0f;
+    [SerializeField] private float cameraHeight = 5.0f;
     [SerializeField] private float heightDamping = 2.0f;
     [SerializeField] private float rotationDamping = 3.0f;
     [SerializeField] private Transform target;
 
-    public void BoostZoom()
+    public bool IsZoomBoosted { get; set; }
+
+    private void FixedUpdate()
     {
-        distance = boostDistance;
-       
+        SetCameraPosition();
     }
-    public void SetNormalZoom()
+
+    private void SetCameraPosition()
     {
-        distance = normalDistance;
+        SetCameraHeight();
+        CalculateCameraPosition(IsZoomBoosted ? boostDistance : normalDistance);
+    }
+
+    private void CalculateCameraPosition(float distance)
+    {
+        if (!target) return;
+        var targetPosition = target.position;
+        var currentTransform = transform.position;
+        // Set the position of the camera on the x-z plane to:
+        // distance meters behind the target
+        var newPosition = targetPosition - Vector3.forward * distance;
+        transform.position = Vector3.Lerp(currentTransform,newPosition,0.3f) ;
     }
     private void LateUpdate()
     {
-        // Early out if we don't have a target
-        if (!target) return;
-        // Calculate the current rotation angles
-        var wantedRotationAngle = target.eulerAngles.y;
-        var wantedHeight = target.position.y + height;
-
-        var currentRotationAngle = transform.eulerAngles.y;
-        var currentHeight = transform.position.y;
-
-        // Damp the rotation around the y-axis
-        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
-
-        // Damp the height
-        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
-
-        // Convert the angle into a rotation
-        var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
-
-        // Set the position of the camera on the x-z plane to:
-        // distance meters behind the target
-        var pos = transform.position;
-        pos = target.position - currentRotation * Vector3.forward * distance;
-        pos.y = currentHeight;
-        transform.position = pos;
-
+        SetCameraRotation();
         // Always look at the target
         transform.LookAt(target);
+    }
+
+    private void SetCameraRotation()
+    {
+        if (!target) return;
+        var wantedRotationAngle = target.eulerAngles.y;
+        var selfRotationAngle = transform.eulerAngles.y;
+        // Damp the rotation around the y-axis
+        var newRotationAngle = Mathf.LerpAngle(selfRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+        // Convert the angle into a rotation
+        var newRotation = Quaternion.Euler(0, newRotationAngle, 0);
+        transform.rotation = newRotation;
+    }
+
+    private void SetCameraHeight()
+    {
+        if (!target) return;
+        var position = transform.position;
+        var wantedHeight = target.position.y + cameraHeight;
+        var selfHeight = position.y;
+        // Damp the height
+        var newHeight  = Mathf.Lerp(selfHeight, wantedHeight, heightDamping * Time.deltaTime);
+        position.y = newHeight;
+        transform.position = position;
     }
     
 }

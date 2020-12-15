@@ -66,7 +66,7 @@ public class Spaceship : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Space)) return;
         levelManager.DoublePoints = true;
         AudioManager.Instance.PlayEffect(spaceshipConfig.AccelerationSound);
-        mainCamera.BoostZoom();
+        mainCamera.IsZoomBoosted = true;
         StartCoroutine(SetAcceleration(spaceshipConfig.AccelerationTime, spaceshipConfig.AccelerationCoefficient));
     }
     private IEnumerator SetAcceleration(float time, float coefficient)
@@ -76,7 +76,7 @@ public class Spaceship : MonoBehaviour
         readyForFillBoost = false;
         yield return new WaitForSeconds(time);
         moveForwardSpeed /= coefficient;
-        mainCamera.SetNormalZoom();
+        mainCamera.IsZoomBoosted = false;
         readyForFillBoost = true;
     }
     private void FeelBoost()

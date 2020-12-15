@@ -95,8 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0880c2d1583b0a146985baad05098107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 8
-  height: 3
-  heightDamping: 2
-  rotationDamping: 3
+  boostDistance: 1
+  normalDistance: 2
+  cameraHeight: 10
+  heightDamping: 3
+  rotationDamping: 1
   target: {fileID: 0}
