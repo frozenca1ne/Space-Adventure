@@ -2,13 +2,15 @@
 
 public class SmoothFollow : MonoBehaviour
 {
-    public float boostDistance = 3f;
-    public float normalDistance = 4f;
-    public float distance = 10.0f;
-    public float height = 5.0f;
-    public float heightDamping = 2.0f;
-    public float rotationDamping = 3.0f;
-    public Transform target;
+    [Header("Zoom")]
+    [SerializeField] private float boostDistance = 3f;
+    [SerializeField] private float normalDistance = 4f;
+    
+    [SerializeField] private float distance = 10.0f;
+    [SerializeField] private float height = 5.0f;
+    [SerializeField] private float heightDamping = 2.0f;
+    [SerializeField] private float rotationDamping = 3.0f;
+    [SerializeField] private Transform target;
 
     public void BoostZoom()
     {
@@ -22,17 +24,13 @@ public class SmoothFollow : MonoBehaviour
     private void LateUpdate()
     {
         // Early out if we don't have a target
-        if (!target)
-        {
-            return;
-        }
-
+        if (!target) return;
         // Calculate the current rotation angles
-        float wantedRotationAngle = target.eulerAngles.y;
-        float wantedHeight = target.position.y + height;
+        var wantedRotationAngle = target.eulerAngles.y;
+        var wantedHeight = target.position.y + height;
 
-        float currentRotationAngle = transform.eulerAngles.y;
-        float currentHeight = transform.position.y;
+        var currentRotationAngle = transform.eulerAngles.y;
+        var currentHeight = transform.position.y;
 
         // Damp the rotation around the y-axis
         currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -41,7 +39,7 @@ public class SmoothFollow : MonoBehaviour
         currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
 
         // Convert the angle into a rotation
-        Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+        var currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
 
         // Set the position of the camera on the x-z plane to:
         // distance meters behind the target

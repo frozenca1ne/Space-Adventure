@@ -31,6 +31,9 @@
           <e p="LevelManager.cs" t="Include" />
           <e p="Road.cs" t="Include" />
           <e p="SmoothFollow.cs" t="Include" />
+          <e p="SOconfigs" t="Include">
+            <e p="SpaceshipConfig.cs" t="Include" />
+          </e>
           <e p="Spaceship.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="GameOverView.cs" t="Include" />
@@ -39,7 +42,6 @@
             <e p="SettingsView.cs" t="Include" />
             <e p="StartGameView.cs" t="Include" />
           </e>
-          <e p="UImanager.cs" t="Include" />
         </e>
         <e p="Shaders" t="Include">
           <e p="Floor shader.shader" t="Include" />

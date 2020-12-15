@@ -9511,16 +9511,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f40c829fcee914082530f2418f5f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForwardSpeed: 50
-  moveRightSpeed: 15
-  moveLimit: 3.3
-  rotateAngleCoeff: 15
-  "acceleration\u0421oeff": 2
-  accelerationTime: 3
-  accelerationSound: {fileID: 8300000, guid: 281e15cc92254794eaf05caf4d044b76, type: 3}
+  spaceship: {fileID: 7259786198174005337}
+  spaceshipConfig: {fileID: 11400000, guid: 0e5a9c0a164a74fd38fcc2ae53760605, type: 2}
   mainCamera: {fileID: 0}
-  diePartical: {fileID: 100006, guid: e076683e0305e35498b8e8834978c0fa, type: 3}
-  dieSound: {fileID: 8300000, guid: 1fd31868d68903d4f9e2c4a3b7ef98f3, type: 3}
+  levelManager: {fileID: 0}
 --- !u!54 &7259786198174005337
 Rigidbody:
   m_ObjectHideFlags: 0

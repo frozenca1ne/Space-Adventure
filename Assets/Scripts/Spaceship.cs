@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using SOConfigs;
 using UnityEngine;
 
 public class Spaceship : MonoBehaviour
@@ -8,46 +8,30 @@ public class Spaceship : MonoBehaviour
     public Action OnBoost;
     public Action OnDie;
 
-    [Header("Move")]
-    [SerializeField] private float moveForwardSpeed = 10f;
-    [SerializeField] private float moveRightSpeed = 10f;
-    [SerializeField] private float moveLimit = 2.5f;
-    [SerializeField] private float rotateAngleCoeff = 10f;
-
-    [Header("Acceleration")]
-    [SerializeField] private float accelerationСoeff = 2f;
-    [SerializeField] private float accelerationTime = 3f;
-    [SerializeField] private AudioClip accelerationSound;
+    [SerializeField] private Rigidbody spaceship;
+    [SerializeField] private SpaceshipConfig spaceshipConfig;
     [SerializeField] private SmoothFollow mainCamera;
-
-    [Header("Die")]
-    [SerializeField] private GameObject diePartical;
-    [SerializeField] private AudioClip dieSound;
-
-
-    private Rigidbody rb;
-
+    [SerializeField] private LevelManager levelManager;
+    
+    private float moveForwardSpeed;
+    private float moveRightLimit;
+    
     private float startBoostFilling = 3f;
     private float boostFilling = 3f;
     private bool readyForSpeedUp;
     private bool readyForFillBoost;
-    private bool isAlive;
 
-    public bool IsAlive
-    {
-        get
-        {
-            return isAlive;
-        }
-    }
+    private bool IsAlive { get; set; }
     public float BoostFilling => boostFilling;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        moveForwardSpeed = spaceshipConfig.MoveForwardSpeed;
+        moveRightLimit = spaceshipConfig.MoveRightLimit;
+        
         readyForSpeedUp = true;
         readyForFillBoost = true;
-        isAlive = true;
+        IsAlive = true;
     }
 
     private void FixedUpdate()
@@ -59,34 +43,46 @@ public class Spaceship : MonoBehaviour
 
     private void Move()
     {
-        if (!isAlive) return;
-        var inputX = Input.GetAxis("Horizontal");
-        var direction = new Vector3(inputX, 0, 0);
-        rb.velocity = Vector3.forward * moveForwardSpeed + direction * moveRightSpeed;
-        var clampedPositionX = Mathf.Clamp(transform.position.x, -moveLimit, moveLimit);
-        transform.position = new Vector3(clampedPositionX, transform.position.y, transform.position.z);
-        transform.rotation = Quaternion.Euler(0, 0, -inputX * rotateAngleCoeff);
+        if (!IsAlive) return;
+        var inputHorizontal = Input.GetAxis("Horizontal");
+        var direction = new Vector3(inputHorizontal, 0, 0);
+        spaceship.velocity = Vector3.forward * moveForwardSpeed + direction * spaceshipConfig.MoveRightSpeed;
+        TiltTheSpaceship(inputHorizontal);
+    }
+
+    private void TiltTheSpaceship(float inputX)
+    {
+        var clampedPositionX = Mathf.Clamp(transform.position.x, -moveRightLimit, moveRightLimit);
+        var currentTransform = transform;
+        var currentPosition = currentTransform.position;
+        currentPosition = new Vector3(clampedPositionX, currentPosition.y, currentPosition.z);
+        currentTransform.position = currentPosition;
+        transform.rotation = Quaternion.Euler(0, 0, -inputX * spaceshipConfig.RotateAngleCoefficient);
     }
 
     private void SetSpeedBoost()
     {
-        //give acceleration
-        if (readyForSpeedUp && isAlive)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                //LevelManager.Instance.DoublePoints = true;
-                AudioManager.Instance.PlayEffect(accelerationSound);
-                mainCamera.BoostZoom();
-                StartCoroutine(SetAcceleration(accelerationTime, accelerationСoeff));
-            }
-        }
-
+        if (!readyForSpeedUp || !IsAlive) return;
+        if (!Input.GetKeyDown(KeyCode.Space)) return;
+        levelManager.DoublePoints = true;
+        AudioManager.Instance.PlayEffect(spaceshipConfig.AccelerationSound);
+        mainCamera.BoostZoom();
+        StartCoroutine(SetAcceleration(spaceshipConfig.AccelerationTime, spaceshipConfig.AccelerationCoefficient));
+    }
+    private IEnumerator SetAcceleration(float time, float coefficient)
+    {
+        moveForwardSpeed *= coefficient;
+        readyForSpeedUp = false;
+        readyForFillBoost = false;
+        yield return new WaitForSeconds(time);
+        moveForwardSpeed /= coefficient;
+        mainCamera.SetNormalZoom();
+        readyForFillBoost = true;
     }
     private void FeelBoost()
     {
         //provided that the player is alive, change the filling of the acceleration scale
-        if (!isAlive) return;
+        if (!IsAlive) return;
         OnBoost?.Invoke();
 
         if (!readyForFillBoost)
@@ -95,7 +91,7 @@ public class Spaceship : MonoBehaviour
         }
         else if (readyForFillBoost && boostFilling < startBoostFilling)
         {
-            //LevelManager.Instance.DoublePoints = false;
+            levelManager.DoublePoints = false;
             boostFilling += Time.deltaTime;
             if (boostFilling >= startBoostFilling)
             {                    
@@ -103,26 +99,13 @@ public class Spaceship : MonoBehaviour
             }
         }
     }
-
-    private IEnumerator SetAcceleration(float time, float coeff)
-    {
-        //add acceleration for 3 seconds
-        moveForwardSpeed *= coeff;
-        readyForSpeedUp = false;
-        readyForFillBoost = false;
-        yield return new WaitForSeconds(time);
-        moveForwardSpeed /= coeff;
-        mainCamera.SetNormalZoom();
-        readyForFillBoost = true;
-
-    }
     private void OnCollisionEnter(Collision collision)
     {
         //stop the object and apply effects to it at the time of death
-        isAlive = false;
-        rb.velocity = Vector3.zero;
-        AudioManager.Instance.PlayEffect(dieSound);
-        Instantiate(diePartical, transform.position, Quaternion.identity);
+        IsAlive = false;
+        spaceship.velocity = Vector3.zero;
+        AudioManager.Instance.PlayEffect(spaceshipConfig.DieSound);
+        Instantiate(spaceshipConfig.DieParticle, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
         OnDie?.Invoke();
     }

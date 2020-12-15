@@ -6,13 +6,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [Header("SpawnRoad")]
-    [SerializeField] Transform player;
-    [SerializeField] Road[] roadPrefabs;
-    [SerializeField] Road firstRoad;
+    [SerializeField] private Transform player;
+    [SerializeField] private Road[] roadPrefabs;
+    [SerializeField] private Road firstRoad;
     [Header("SpawnAsteroid")]
-    [SerializeField] GameObject asteroid;
-    [SerializeField] int asteroidCount = 1;
-    [SerializeField] float createRate = 10f;
+    [SerializeField] private GameObject asteroid;
+    [SerializeField] private int asteroidCount = 1;
+    [SerializeField] private float createRate = 10f;
 
     
     private Road newRoad;
@@ -39,18 +39,16 @@ public class GameManager : MonoBehaviour
         newRoad.transform.position = spawnedRoads[spawnedRoads.Count - 1].end.position - newRoad.begin.localPosition;
         SpawnedAsteroid();
         spawnedRoads.Add(newRoad);
-        if(spawnedRoads.Count >= 4)
-        {
-            Destroy(spawnedRoads[0].gameObject);
-            spawnedRoads.RemoveAt(0);
-        }
+        if (spawnedRoads.Count < 4) return;
+        Destroy(spawnedRoads[0].gameObject);
+        spawnedRoads.RemoveAt(0);
     }
     private void SpawnedAsteroid()
     {
         //create asteroids on a new section of the road, depending on the complexity of the game
-        for (int i = 0; i < asteroidCount;i++)
+        for (var i = 0; i < asteroidCount;i++)
         {
-            int getPositionIndex = Random.Range(0, newRoad.createPositions.Count - 1);
+            var getPositionIndex = Random.Range(0, newRoad.createPositions.Count - 1);
             Instantiate(asteroid, newRoad.createPositions[getPositionIndex].position,Quaternion.identity);
             newRoad.createPositions.RemoveAt(getPositionIndex);
         }

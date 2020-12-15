@@ -9,10 +9,10 @@ public class LevelManager : MonoBehaviour,IPointAdd
     public static event Action<int> OnAsteroidsCountChanged;
     public static event Action<float> OnTimeInGameChanged;
     
-    [SerializeField] private int currentScore = 0;
-    [SerializeField] private int currentBestScore = 0;
-    [SerializeField] private int earnAsteroidsCount = 0;
-    [SerializeField] private float timeInGame = 0;
+    [SerializeField] private int currentScore ;
+    [SerializeField] private int currentBestScore ;
+    [SerializeField] private int earnAsteroidsCount ;
+    [SerializeField] private float timeInGame ;
 
     private float scoreTimer;
 
