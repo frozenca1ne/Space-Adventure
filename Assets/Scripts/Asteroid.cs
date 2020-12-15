@@ -28,6 +28,9 @@ public class Asteroid : MonoBehaviour
     }
     private void OnBecameInvisible()
     {
+        var helper = new AsteroidScoreHelper();
+        helper.CurrentAsteroidsEarn += pointsPerAsteroid;
+        helper.CurrentPointsPerAsteroid += points;
         Destroy(gameObject);
     }
 }

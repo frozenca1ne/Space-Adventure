@@ -25,6 +25,7 @@
         </e>
         <e p="Scripts" t="Include">
           <e p="Asteroid.cs" t="Include" />
+          <e p="AsteroidScoreHelper.cs" t="Include" />
           <e p="AudioManager.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="IPointAdd.cs" t="Include" />

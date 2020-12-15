@@ -63,7 +63,7 @@ namespace UI
         }
         private void ChangeScore(int value)
         {
-            scoreText.text = $"SCORE : {value}";
+            scoreText.text = $"SCORE : {value }";
         }
 
         private void ChangeBestScore(int value)
@@ -87,7 +87,7 @@ namespace UI
         }
         private void ChangeTime(float value)
         {
-            timeInGame.text = $"TIME : {value} s.";
+            timeInGame.text = $"TIME : {value:F2} s.";
         }
         private void ChangeAsteroidsCount(int value)
         {

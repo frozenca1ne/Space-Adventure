@@ -17,11 +17,11 @@ public class LevelManager : MonoBehaviour,IPointAdd
     private float scoreTimer;
 
     public int CurrentScore => currentScore;
-    public int CurrentBestScore => currentBestScore;
     public int EarnAsteroidsCount => earnAsteroidsCount;
     public float TimeInGame => timeInGame;
     
     public bool DoublePoints { get; set; }
+
     public void AddPointsToScore(int value)
     {
         currentScore += value;
@@ -32,6 +32,18 @@ public class LevelManager : MonoBehaviour,IPointAdd
     {
         earnAsteroidsCount += value;
         OnAsteroidsCountChanged?.Invoke(earnAsteroidsCount);
+    }
+
+    private void OnEnable()
+    {
+        AsteroidScoreHelper.OnAsteroidsAdd += AddAsteroidsCount;
+        AsteroidScoreHelper.OnAsteroidsPointsAdd += AddPointsToScore;
+    }
+
+    private void OnDisable()
+    {
+        AsteroidScoreHelper.OnAsteroidsAdd -= AddAsteroidsCount;
+        AsteroidScoreHelper.OnAsteroidsPointsAdd -= AddPointsToScore;
     }
 
     private void Start()
@@ -65,7 +77,8 @@ public class LevelManager : MonoBehaviour,IPointAdd
 
     private void CheckNewRecord()
     {
-        if (currentScore <= PlayerPrefs.GetInt("BestScore", 0)) return;
+        var lastBestScore = PlayerPrefs.GetInt("BestScore", 0);
+        if (currentScore <= lastBestScore) return;
         PlayerPrefs.SetInt("BestScore", currentBestScore);
         OnBestScoreChanged?.Invoke(currentScore);
     }

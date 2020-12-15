@@ -440,18 +440,13 @@ PrefabInstance:
       objectReference: {fileID: 1624860838}
     - target: {fileID: 16548558043412033, guid: 6fe5d09f674d0644ab0bac5d6e1a8553,
         type: 3}
-      propertyPath: distance
-      value: 4
+      propertyPath: boostDistance
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 16548558043412033, guid: 6fe5d09f674d0644ab0bac5d6e1a8553,
         type: 3}
-      propertyPath: height
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 16548558043412033, guid: 6fe5d09f674d0644ab0bac5d6e1a8553,
-        type: 3}
-      propertyPath: heightDamping
-      value: 1
+      propertyPath: normalDistance
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 16548558043412034, guid: 6fe5d09f674d0644ab0bac5d6e1a8553,
         type: 3}
@@ -706,6 +701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PreStartPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742867907935138425, guid: 6db8903fcbef8414ea44ee247aac53f3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db8903fcbef8414ea44ee247aac53f3, type: 3}

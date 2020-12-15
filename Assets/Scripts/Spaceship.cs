@@ -15,14 +15,13 @@ public class Spaceship : MonoBehaviour
     
     private float moveForwardSpeed;
     private float moveRightLimit;
-    
-    private float startBoostFilling = 3f;
-    private float boostFilling = 3f;
+
+    private const float StartBoostFilling = 3f;
     private bool readyForSpeedUp;
     private bool readyForFillBoost;
 
     private bool IsAlive { get; set; }
-    public float BoostFilling => boostFilling;
+    public float BoostFilling { get; private set; } = 3f;
 
     private void Start()
     {
@@ -87,19 +86,19 @@ public class Spaceship : MonoBehaviour
 
         if (!readyForFillBoost)
         {
-            boostFilling -= Time.deltaTime;
+            BoostFilling -= Time.deltaTime;
         }
-        else if (readyForFillBoost && boostFilling < startBoostFilling)
+        else if (readyForFillBoost && BoostFilling < StartBoostFilling)
         {
             levelManager.DoublePoints = false;
-            boostFilling += Time.deltaTime;
-            if (boostFilling >= startBoostFilling)
+            BoostFilling += Time.deltaTime;
+            if (BoostFilling >= StartBoostFilling)
             {                    
                 readyForSpeedUp = true;
             }
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter()
     {
         //stop the object and apply effects to it at the time of death
         IsAlive = false;

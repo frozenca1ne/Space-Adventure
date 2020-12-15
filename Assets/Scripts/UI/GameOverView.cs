@@ -29,10 +29,10 @@ namespace UI
         {
             finalScore.text = $"FINAL SCORE : {levelManager.CurrentScore}";
             finalAsteroids.text = $"ASTEROIDS : {levelManager.EarnAsteroidsCount}";
-            finalTotalTime.text = $"TOTAL TIME : {levelManager.TimeInGame}";
+            finalTotalTime.text = $"TOTAL TIME : {levelManager.TimeInGame : F2}";
 
             var lastBestScore = PlayerPrefs.GetInt("BestScore", 0);
-            if (levelManager.CurrentScore > lastBestScore) return;
+            if (levelManager.CurrentScore <= lastBestScore) return;
             newRecordText.enabled = true;
         }
 
