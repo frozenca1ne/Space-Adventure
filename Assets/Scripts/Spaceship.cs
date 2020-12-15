@@ -5,23 +5,24 @@ using UnityEngine;
 
 public class Spaceship : MonoBehaviour
 {
-    public Action OnBoost = delegate { };
+    public Action OnBoost;
+    public Action OnDie;
 
     [Header("Move")]
-    [SerializeField] float moveForwardSpeed = 10f;
-    [SerializeField] float moveRightSpeed = 10f;
-    [SerializeField] float moveLimit = 2.5f;
-    [SerializeField] float rotateAngleCoeff = 10f;
+    [SerializeField] private float moveForwardSpeed = 10f;
+    [SerializeField] private float moveRightSpeed = 10f;
+    [SerializeField] private float moveLimit = 2.5f;
+    [SerializeField] private float rotateAngleCoeff = 10f;
 
     [Header("Acceleration")]
-    [SerializeField] float accelerationСoeff = 2f;
-    [SerializeField] float accelerationTime = 3f;
-    [SerializeField] AudioClip accelerationSound;
-    [SerializeField] SmoothFollow mainCamera;
+    [SerializeField] private float accelerationСoeff = 2f;
+    [SerializeField] private float accelerationTime = 3f;
+    [SerializeField] private AudioClip accelerationSound;
+    [SerializeField] private SmoothFollow mainCamera;
 
     [Header("Die")]
-    [SerializeField] GameObject diePartical;
-    [SerializeField] AudioClip dieSound;
+    [SerializeField] private GameObject diePartical;
+    [SerializeField] private AudioClip dieSound;
 
 
     private Rigidbody rb;
@@ -58,15 +59,13 @@ public class Spaceship : MonoBehaviour
 
     private void Move()
     {
-        if (isAlive)
-        {
-            float inputX = Input.GetAxis("Horizontal");
-            Vector3 direction = new Vector3(inputX, 0, 0);
-            rb.velocity = Vector3.forward * moveForwardSpeed + direction * moveRightSpeed;
-            float clampedPositionX = Mathf.Clamp(transform.position.x, -moveLimit, moveLimit);
-            transform.position = new Vector3(clampedPositionX, transform.position.y, transform.position.z);
-            transform.rotation = Quaternion.Euler(0, 0, -inputX * rotateAngleCoeff);
-        }
+        if (!isAlive) return;
+        var inputX = Input.GetAxis("Horizontal");
+        var direction = new Vector3(inputX, 0, 0);
+        rb.velocity = Vector3.forward * moveForwardSpeed + direction * moveRightSpeed;
+        var clampedPositionX = Mathf.Clamp(transform.position.x, -moveLimit, moveLimit);
+        transform.position = new Vector3(clampedPositionX, transform.position.y, transform.position.z);
+        transform.rotation = Quaternion.Euler(0, 0, -inputX * rotateAngleCoeff);
     }
 
     private void SetSpeedBoost()
@@ -87,22 +86,20 @@ public class Spaceship : MonoBehaviour
     private void FeelBoost()
     {
         //provided that the player is alive, change the filling of the acceleration scale
-        if (isAlive)
-        {
-            OnBoost();
+        if (!isAlive) return;
+        OnBoost?.Invoke();
 
-            if (!readyForFillBoost)
-            {
-                boostFilling -= Time.deltaTime;
-            }
-            else if (readyForFillBoost && boostFilling < startBoostFilling)
-            {
-                //LevelManager.Instance.DoublePoints = false;
-                boostFilling += Time.deltaTime;
-                if (boostFilling >= startBoostFilling)
-                {                    
-                    readyForSpeedUp = true;
-                }
+        if (!readyForFillBoost)
+        {
+            boostFilling -= Time.deltaTime;
+        }
+        else if (readyForFillBoost && boostFilling < startBoostFilling)
+        {
+            //LevelManager.Instance.DoublePoints = false;
+            boostFilling += Time.deltaTime;
+            if (boostFilling >= startBoostFilling)
+            {                    
+                readyForSpeedUp = true;
             }
         }
     }
@@ -127,7 +124,6 @@ public class Spaceship : MonoBehaviour
         AudioManager.Instance.PlayEffect(dieSound);
         Instantiate(diePartical, transform.position, Quaternion.identity);
         gameObject.SetActive(false);
-        //LevelManager.Instance.SetBestScore();
-        //UImanager.Instance.ActivateLoseGamePanel();
+        OnDie?.Invoke();
     }
 }

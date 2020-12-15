@@ -375,6 +375,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceship: {fileID: 0}
+  loseGamePanel: {fileID: 0}
+  openPanelDelay: 1
+  settingsPanel: {fileID: 0}
+  openSettingsButton: {fileID: 3662379828904088886}
   scoreText: {fileID: 281968609614485255}
   bestScoreText: {fileID: 5221660974663246196}
   timeInGame: {fileID: 770373334119496816}

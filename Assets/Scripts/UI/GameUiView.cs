@@ -7,6 +7,10 @@ namespace UI
     public class GameUiView : MonoBehaviour
     {
         [SerializeField] private Spaceship spaceship;
+
+        [Header("LoseGame")]
+        [SerializeField] private CanvasGroup loseGamePanel;
+        [SerializeField] private float openPanelDelay = 1f;
         
         [Header("Settings")]
         [SerializeField] private CanvasGroup settingsPanel;
@@ -31,6 +35,7 @@ namespace UI
             boostSlider.maxValue = boostReadyValue;
             
             spaceship.OnBoost += ChangeBoostSlider;
+            spaceship.OnDie += OpenLoseGamePanel;
             
             LevelManager.OnScoreChanged += ChangeScore;
             LevelManager.OnBestScoreChanged += ChangeBestScore;
@@ -97,6 +102,18 @@ namespace UI
         private void OpenSettingsPanel()
         {
             settingsPanel.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+
+        private void OpenLoseGamePanel()
+        {
+            StartCoroutine(OpenPanelWithDelay(openPanelDelay));
+        }
+
+        private IEnumerator OpenPanelWithDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            loseGamePanel.gameObject.SetActive(true);
             Time.timeScale = 0;
         }
     }
